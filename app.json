@@ -1,4 +1,8 @@
 {
   "name": "Quiz_Verse",
-  "displayName": "Quiz_Verse"
+  "displayName": "Quiz_Verse",
+
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-7528260341883951~8001876772"
+  }
 }
