@@ -11,7 +11,18 @@ import {
   BannerAdSize,
   BannerAd,
   TestIds,
+  RewardedAd,
+  RewardedAdEventType,
 } from 'react-native-google-mobile-ads';
+
+const adUnitId = __DEV__
+  ? TestIds.REWARDED
+  : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy';
+
+const rewarded = RewardedAd.createForAdRequest(adUnitId, {
+  requestNonPersonalizedAdsOnly: true,
+  keywords: ['fashion', 'clothing'],
+});
 
 const shuffleArray = array => {
   for (let i = array.length - 1; i > 0; i--) {
@@ -69,8 +80,9 @@ export default function Quiz({navigation}) {
   const handleNext = () => {
     setQues(ques + 1);
     setOptions(generateOptionsAndShuffle(questions[ques + 1]));
-    setShowNextButton(false);
+    setShowNextButton(false); 
     setIsOptionDisabled(false);
+    // setIsRewarded(false);
   };
 
   const handleShowResult = () => {
@@ -84,9 +96,9 @@ export default function Quiz({navigation}) {
         style={styles.container}
         start={{x: 0, y: 0}}
         end={{x: 1, y: 1}}>
-          <View style={{position: 'absolute', bottom: 0, alignSelf: 'center'}}>
-        <BannerAd size={BannerAdSize.BANNER} unitId={TestIds.BANNER} />
-      </View>
+        <View style={{position: 'absolute', bottom: 0, alignSelf: 'center'}}>
+          <BannerAd size={BannerAdSize.BANNER} unitId={TestIds.BANNER} />
+        </View>
         <View style={styles.container}>
           {isLoading ? (
             <View style={styles.Loading}>
@@ -420,6 +432,17 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 16,
     height: '100%',
+  },
+  hint: {
+    backgroundColor: COLORS.success1,
+    padding: 5,
+    marginBottom: 5,
+    alignItems: 'center',
+    alignSelf: 'flex-end',
+    marginHorizontal: 15,
+    height: 40,
+    width: 40,
+    borderRadius: 20,
   },
   Que: {
     margin: 5,
