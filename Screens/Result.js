@@ -50,17 +50,17 @@ export default function Result({navigation, route}) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 40,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
+    paddingTop: "10%",
+    paddingVertical: "10%",
+    paddingBottom: "5%",
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
 
   animation: {
-    width: 450,
-    height: 450,
+    width: '100%',
+    height: '100%',
   },
   bannerContainer: {
     justifyContent: 'center',
@@ -78,15 +78,15 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    margin: 1,
-    width: 350,
+    margin: '10%',
+    width: '100%',
     backgroundColor: '#2e5cb890',
-    padding: 10,
-    marginVertical: 30,
-    paddingHorizontal: 16,
+    padding: '2%',
+    marginVertical: '15%',
+    paddingHorizontal: '25%',
     borderRadius: 16,
     alignItems: 'center',
-    marginBottom: 50,
+    marginBottom: '10%',
   },
 
   buttonText: {

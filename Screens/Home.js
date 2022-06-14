@@ -7,7 +7,6 @@ import Title from '../Components/Title';
 import LottieView from 'lottie-react-native';
 
 export default function Home({navigation}) {
-
   return (
     <LinearGradient
       colors={['#0D324D', '#7F5A83']}
@@ -27,7 +26,10 @@ export default function Home({navigation}) {
           />
         </View>
 
-        <TouchableOpacity onPress={() => {navigation.navigate('Rules')}}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Rules');
+          }}>
           <View style={styles.button}>
             <Text style={styles.buttonText}>START</Text>
           </View>
@@ -39,43 +41,32 @@ export default function Home({navigation}) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 40,
-    paddingVertical: 12,
-    paddingBottom : 12,
+    paddingTop: "10%",
+    paddingVertical: "10%",
+    paddingBottom: "5%",
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  start: {
-    paddingHorizontal: 16,
-  },
   banner: {
-    height: 400,
-    width: 400,
-  },
-  backgroundVideo: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
+    height: '100%',
+    width: '100%',
   },
   bannerContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
   },
-
   button: {
-    margin: 1,
-    width: 350,
+    margin: '10%',
+    width: '100%',
     backgroundColor: '#2e5cb890',
-    padding: 10,
-    marginVertical: 30,
-    paddingHorizontal: 16,
+    padding: '2%',
+    marginVertical: '15%',
+    paddingHorizontal: '25%',
     borderRadius: 16,
     alignItems: 'center',
-    marginBottom: 30,
+    marginBottom: '10%',
   },
 
   buttonText: {
@@ -84,7 +75,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   animation: {
-    width: 500,
-    height: 500,
+    width: '110%',
+    height: '110%',
   },
 });

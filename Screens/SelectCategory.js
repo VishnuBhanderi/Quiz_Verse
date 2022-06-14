@@ -87,17 +87,23 @@ export default function SelectCategory({navigation}) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 20,
-    paddingHorizontal: 10,
+    paddingTop: "1%",
+    // paddingVertical: "0%",
+    paddingBottom: "10%",
+    height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
   heading: {
+    marginTop:'5%',
     flex: 1,
+    // marginBottom:"10%"
   },
 
   categories: {
     flex:11,
+    height:"100%",
+    marginTop:"5%",
     justifyContent: 'center',
     alignItems: 'center',
     
@@ -116,12 +122,12 @@ const styles = StyleSheet.create({
 
   button: {
 
-    width: 350,
+    width: 300,
     backgroundColor: '#7F5A83',
     borderColor: '#d45ee0',
     borderWidth:3,
-    padding: 10,
-    paddingHorizontal: 16,
+    padding: "2%",
+    paddingHorizontal: "10%",
     borderRadius: 16,
     alignItems: 'center',
     marginBottom: 5,

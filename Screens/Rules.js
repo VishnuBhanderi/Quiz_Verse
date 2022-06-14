@@ -59,10 +59,9 @@ export default function Rules({navigation}) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 40,
-    paddingVertical: 12,
-    paddingBottom: 36,
-    paddingHorizontal: 12,
+    paddingTop: "10%",
+    paddingVertical: "10%",
+    paddingBottom: "5%",
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
@@ -72,7 +71,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'baseline',
     alignSelf: 'flex-start',
-    // flex: 1,
   },
 
   titel: {
@@ -86,14 +84,13 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
   },
   BestofLuck: {
-    marginVertical: 10,
     fontSize: 40,
     fontFamily: 'serif',
     fontWeight: '600',
     color: 'white',
   },
   Rules: {
-    marginVertical: 80,
+    marginVertical: "15%",
   },
   evaluationScheme: {
     fontSize: 20,
@@ -120,15 +117,15 @@ const styles = StyleSheet.create({
     textAlign: 'auto',
   },
   button: {
-    margin: 1,
-    width: 350,
+    margin: '10%',
+    width: '100%',
     backgroundColor: '#2e5cb890',
-    padding: 10,
-    marginVertical: 90,
-    paddingHorizontal: 16,
+    padding: '2%',
+    marginVertical: '15%',
+    paddingHorizontal: '10%',
     borderRadius: 16,
     alignItems: 'center',
-    marginBottom: 30,
+    marginBottom: '1%',
   },
 
   buttonText: {
