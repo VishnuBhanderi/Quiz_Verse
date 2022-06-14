@@ -11,6 +11,9 @@ import {
   TestIds,
 } from 'react-native-google-mobile-ads';
 
+const adUnitBottom = 'ca-app-pub-7528260341883951/6381273964';
+const adUnitTop = 'ca-app-pub-7528260341883951/4876620603';
+
 export default function Rules({navigation}) {
   return (
     <LinearGradient
@@ -20,10 +23,22 @@ export default function Rules({navigation}) {
       end={{x: 1, y: 1}}>
       
       <View style={{position: 'absolute', top: 0, alignSelf: 'center'}}>
-        <BannerAd size={BannerAdSize.BANNER} unitId={TestIds.BANNER} />
+      <BannerAd
+      unitId={adUnitTop}
+      size={BannerAdSize.BANNER}
+      requestOptions={{
+        requestNonPersonalizedAdsOnly: true,
+      }}
+    />
       </View>
       <View style={{position: 'absolute', bottom: 0, alignSelf: 'center'}}>
-        <BannerAd size={BannerAdSize.BANNER} unitId={TestIds.BANNER} />
+      <BannerAd
+      unitId={adUnitBottom}
+      size={BannerAdSize.BANNER}
+      requestOptions={{
+        requestNonPersonalizedAdsOnly: true,
+      }}
+    />
       </View>
       <View style={styles.container}>
         <Text style={styles.titel}>Rules</Text>

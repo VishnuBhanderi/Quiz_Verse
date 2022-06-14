@@ -16,7 +16,7 @@ import {
   useRewardedAd,
 } from 'react-native-google-mobile-ads';
 
-const adUnitId = TestIds.REWARDED;
+const adUnitId = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-7528260341883951/2116378285';
 const shuffleArray = array => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -39,7 +39,7 @@ export default function Quiz({navigation}) {
   const getQuiz = async () => {
     setIsLoading(true);
     const url =
-      'https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple&encode=url3986';
+      'https://opentdb.com/api.php?amount=10&category=28&difficulty=easy&type=multiple&encode=url3986';
     const res = await fetch(url);
     const data = await res.json();
     setQuestions(data.results);
@@ -121,7 +121,7 @@ export default function Quiz({navigation}) {
         start={{x: 0, y: 0}}
         end={{x: 1, y: 1}}>
         <View style={{position: 'absolute', bottom: 0, alignSelf: 'center'}}>
-          <BannerAd size={BannerAdSize.BANNER} unitId={TestIds.BANNER} />
+          <BannerAd size={BannerAdSize.BANNER} unitId={'ca-app-pub-7528260341883951/5774769301'} />
         </View>
         <View style={styles.container}>
           {isLoading ? (

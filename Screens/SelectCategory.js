@@ -16,7 +16,7 @@ export default function SelectCategory({navigation}) {
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}>
         <View style={{position: 'absolute', bottom: 0, alignSelf: 'center'}}>
-        <BannerAd size={BannerAdSize.BANNER} unitId={TestIds.BANNER} />
+        <BannerAd size={BannerAdSize.BANNER} unitId={'ca-app-pub-7528260341883951/5806558897'} />
       </View>
       <View style={styles.container}>
         <View style={styles.heading}>

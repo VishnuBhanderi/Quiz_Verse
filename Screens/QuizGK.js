@@ -16,7 +16,7 @@ import {
   useRewardedAd,
 } from 'react-native-google-mobile-ads';
 
-const adUnitId = TestIds.REWARDED;
+const adUnitId = 'ca-app-pub-7528260341883951/4387318403';
 const shuffleArray = array => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -121,7 +121,7 @@ export default function Quiz({navigation}) {
         start={{x: 0, y: 0}}
         end={{x: 1, y: 1}}>
         <View style={{position: 'absolute', bottom: 0, alignSelf: 'center'}}>
-          <BannerAd size={BannerAdSize.BANNER} unitId={TestIds.BANNER} />
+          <BannerAd size={BannerAdSize.BANNER} unitId={'ca-app-pub-7528260341883951/4493477227'} />
         </View>
         <View style={styles.container}>
           {isLoading ? (
