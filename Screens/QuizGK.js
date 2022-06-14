@@ -13,17 +13,10 @@ import {
   TestIds,
   RewardedAd,
   RewardedAdEventType,
+  useRewardedAd,
 } from 'react-native-google-mobile-ads';
 
-const adUnitId = __DEV__
-  ? TestIds.REWARDED
-  : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy';
-
-const rewarded = RewardedAd.createForAdRequest(adUnitId, {
-  requestNonPersonalizedAdsOnly: true,
-  keywords: ['fashion', 'clothing'],
-});
-
+const adUnitId = TestIds.REWARDED;
 const shuffleArray = array => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -43,11 +36,10 @@ export default function Quiz({navigation}) {
   const [currentOptionSelected, setCurrentOptionSelected] = useState(null);
   const [correctOption, setCorrectOption] = useState(null);
 
-  
   const getQuiz = async () => {
     setIsLoading(true);
     const url =
-      'https://opentdb.com/api.php?amount=10&category=32&difficulty=easy&type=multiple&encode=url3986';
+      'https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple&encode=url3986';
     const res = await fetch(url);
     const data = await res.json();
     setQuestions(data.results);
@@ -82,42 +74,43 @@ export default function Quiz({navigation}) {
   const handleNext = () => {
     setQues(ques + 1);
     setOptions(generateOptionsAndShuffle(questions[ques + 1]));
-    setShowNextButton(false); 
+    setShowNextButton(false);
     setIsOptionDisabled(false);
-    // setIsRewarded(false);
+    setIsRewarded(false);
   };
 
   const handleShowResult = () => {
     navigation.navigate('Result', {score: score});
   };
 
-  const [loaded, setLoaded] = useState(false);
-
+  const {isLoaded, isClosed, load, show} = useRewardedAd(adUnitId, {
+    requestNonPersonalizedAdsOnly: true,
+  });
   useEffect(() => {
-    const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
-      setLoaded(true);
-    });
-    const unsubscribeEarned = rewarded.addAdEventListener(
-      RewardedAdEventType.EARNED_REWARD,
-      reward => {
-        console.log('User earned reward of ', reward);
-      },
-    );
-      
-    // Start loading the rewarded ad straight away
-    rewarded.load();
+    load();
+  }, [load]);
+  useEffect(() => {
+    if (isClosed) {
+      setIsRewarded(true);
+      console.log('User earned reward of ');
+      load();
+    }
+  }, [isClosed, load]);
 
-    // Unsubscribe from events on unmount
-    return () => {
-      unsubscribeLoaded();
-      unsubscribeEarned();
-    };
-  }, []);
+  // // Start loading the rewarded ad straight away
+  // load();
+
+  // Unsubscribe from events on unmount
+
+  const onPress = async () => {
+    if (isLoaded) {
+      return show();
+    } else {
+      return null;
+    }
+  };
 
   // No advert ready to show yet
-  if (!loaded) {
-    return null;
-  }
 
   return (
     <>
@@ -141,12 +134,9 @@ export default function Quiz({navigation}) {
           ) : (
             questions && (
               <View style={styles.parent}>
-                {!showNextButton ? ( <View>
-                    <TouchableOpacity
-                      style={styles.hint}
-                      onPress={() => {
-                        rewarded.show();
-                      }}>
+                {!showNextButton ? (
+                  <View>
+                    <TouchableOpacity style={styles.hint} onPress={onPress}>
                       <View
                         style={{
                           width: 30,
@@ -158,7 +148,7 @@ export default function Quiz({navigation}) {
                           alignSelf: 'center',
                         }}>
                         <MaterialCommunityIcons
-                          name="hint"
+                          name="key"
                           style={{
                             color: COLORS.white,
                             fontSize: 20,
@@ -166,7 +156,8 @@ export default function Quiz({navigation}) {
                         />
                       </View>
                     </TouchableOpacity>
-                  </View>) : null}
+                  </View>
+                ) : null}
                 <View style={styles.questionbox}>
                   <View style={styles.Que}>
                     <Text style={styles.Quet}>
@@ -197,14 +188,16 @@ export default function Quiz({navigation}) {
                       borderColor:
                         options[0] == correctOption
                           ? COLORS.success
-                          : options[0] == currentOptionSelected
+                          : options[0] == currentOptionSelected &&
+                            isRewarded == false
                           ? COLORS.error
                           : COLORS.secondary + '40',
                       marginVertical: 6,
                       backgroundColor:
                         options[0] == correctOption
                           ? COLORS.success1
-                          : options[0] == currentOptionSelected
+                          : options[0] == currentOptionSelected &&
+                            isRewarded == false
                           ? COLORS.error1
                           : COLORS.secondary + '20',
                     }}>
@@ -230,7 +223,8 @@ export default function Quiz({navigation}) {
                           }}
                         />
                       </View>
-                    ) : options[0] == currentOptionSelected ? (
+                    ) : options[0] == currentOptionSelected &&
+                      isRewarded == false ? (
                       <View
                         style={{
                           width: 30,
@@ -266,14 +260,16 @@ export default function Quiz({navigation}) {
                       borderColor:
                         options[1] == correctOption
                           ? COLORS.success
-                          : options[1] == currentOptionSelected
+                          : options[1] == currentOptionSelected &&
+                            isRewarded == false
                           ? COLORS.error
                           : COLORS.secondary + '40',
                       marginVertical: 6,
                       backgroundColor:
                         options[1] == correctOption
                           ? COLORS.success1
-                          : options[1] == currentOptionSelected
+                          : options[1] == currentOptionSelected &&
+                            isRewarded == false
                           ? COLORS.error1
                           : COLORS.secondary + '20',
                     }}>
@@ -299,7 +295,8 @@ export default function Quiz({navigation}) {
                           }}
                         />
                       </View>
-                    ) : options[1] == currentOptionSelected ? (
+                    ) : options[1] == currentOptionSelected &&
+                      isRewarded == false ? (
                       <View
                         style={{
                           width: 30,
@@ -335,14 +332,16 @@ export default function Quiz({navigation}) {
                       borderColor:
                         options[2] == correctOption
                           ? COLORS.success
-                          : options[2] == currentOptionSelected
+                          : options[2] == currentOptionSelected &&
+                            isRewarded == false
                           ? COLORS.error
                           : COLORS.secondary + '40',
                       marginVertical: 6,
                       backgroundColor:
                         options[2] == correctOption
                           ? COLORS.success1
-                          : options[2] == currentOptionSelected
+                          : options[2] == currentOptionSelected &&
+                            isRewarded == false
                           ? COLORS.error1
                           : COLORS.secondary + '20',
                     }}>
@@ -368,7 +367,8 @@ export default function Quiz({navigation}) {
                           }}
                         />
                       </View>
-                    ) : options[2] == currentOptionSelected ? (
+                    ) : options[2] == currentOptionSelected &&
+                      isRewarded == false ? (
                       <View
                         style={{
                           width: 30,
@@ -404,14 +404,16 @@ export default function Quiz({navigation}) {
                       borderColor:
                         options[3] == correctOption
                           ? COLORS.success
-                          : options[3] == currentOptionSelected
+                          : options[3] == currentOptionSelected &&
+                            isRewarded == false
                           ? COLORS.error
                           : COLORS.secondary + '40',
                       marginVertical: 6,
                       backgroundColor:
                         options[3] == correctOption
                           ? COLORS.success1
-                          : options[3] == currentOptionSelected
+                          : options[3] == currentOptionSelected &&
+                            isRewarded == false
                           ? COLORS.error1
                           : COLORS.secondary + '20',
                     }}>
@@ -437,7 +439,8 @@ export default function Quiz({navigation}) {
                           }}
                         />
                       </View>
-                    ) : options[3] == currentOptionSelected ? (
+                    ) : options[3] == currentOptionSelected &&
+                      isRewarded == false ? (
                       <View
                         style={{
                           width: 30,
@@ -458,6 +461,19 @@ export default function Quiz({navigation}) {
                     ) : null}
                   </TouchableOpacity>
                 </View>
+                <View
+                  style={{
+                    alignItems: 'center',
+                  }}>
+                  {isRewarded && !showNextButton ? (
+                    <Text
+                      style={{
+                        color: COLORS.success,
+                      }}>
+                      Click any option to get correct answer
+                    </Text>
+                  ) : null}
+                </View>
                 <View style={styles.bottom}>
                   {showNextButton ? (
                     <TouchableOpacity
@@ -469,7 +485,7 @@ export default function Quiz({navigation}) {
                     <TouchableOpacity
                       style={styles.button}
                       onPress={handleShowResult}>
-                      <Text style={styles.buttonText}>SHOW RESULTS </Text>
+                      <Text style={styles.buttonText}>SHOW RESULTS</Text>
                     </TouchableOpacity>
                   ) : null}
                 </View>

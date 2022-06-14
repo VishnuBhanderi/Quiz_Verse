@@ -5,25 +5,9 @@ import {useEffect} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import Title from '../Components/Title';
 import LottieView from 'lottie-react-native';
-import { useInterstitialAd, TestIds } from '@react-native-admob/admob';
 
 export default function Home({navigation}) {
-  const { adLoaded, adDismissed, show } = useInterstitialAd(
-    TestIds.REWARDED_INTERSTITIAL,
-    {
-      requestOptions: {
-        requestNonPersonalizedAdsOnly: true,
-      },
-    }
-  );
 
-  useEffect(() => {
-    if (adDismissed) {
-      console.log('adDismissed');
-      navigation.navigate('Rules');
-    }
-  }, [adDismissed, navigation]);
-  
   return (
     <LinearGradient
       colors={['#0D324D', '#7F5A83']}
@@ -43,15 +27,7 @@ export default function Home({navigation}) {
           />
         </View>
 
-        <TouchableOpacity onPress={() => {
-          if (adLoaded) {
-            show();
-          } else {
-            // No advert ready to show yet
-            console.log('Not Loaded');
-            navigation.navigate('Rules');
-          }
-        }}>
+        <TouchableOpacity onPress={() => {navigation.navigate('Rules')}}>
           <View style={styles.button}>
             <Text style={styles.buttonText}>START</Text>
           </View>
