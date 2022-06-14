@@ -92,6 +92,7 @@ export default function Quiz({navigation}) {
   useEffect(() => {
     if (isClosed) {
       setIsRewarded(true);
+      setScore(score+10);
       console.log('User earned reward of ');
       load();
     }

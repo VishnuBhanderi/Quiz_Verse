@@ -15,8 +15,8 @@ import {
   RewardedAdEventType,
   useRewardedAd,
 } from 'react-native-google-mobile-ads';
-const adUnitId =  TestIds.REWARDED;
 
+const adUnitId = TestIds.REWARDED;
 const shuffleArray = array => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -39,7 +39,7 @@ export default function Quiz({navigation}) {
   const getQuiz = async () => {
     setIsLoading(true);
     const url =
-      'https://opentdb.com/api.php?amount=10&category=17&difficulty=easy&type=multiple&encode=url3986';
+      'https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple&encode=url3986';
     const res = await fetch(url);
     const data = await res.json();
     setQuestions(data.results);
@@ -92,6 +92,7 @@ export default function Quiz({navigation}) {
   useEffect(() => {
     if (isClosed) {
       setIsRewarded(true);
+      setScore(score+10);
       console.log('User earned reward of ');
       load();
     }
@@ -176,7 +177,7 @@ export default function Quiz({navigation}) {
                     onPress={() => validateAnswer(options[0])}
                     disabled={isOptionDisabled}
                     style={{
-                      paddingVertical: 12,
+                      paddingVertical: "2%",
                       paddingHorizontal: 20,
                       borderRadius: 20,
                       borderWidth: 3,
@@ -184,7 +185,7 @@ export default function Quiz({navigation}) {
                       flexDirection: 'row',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      height: 60,
+                      // height: 60,
                       borderColor:
                         options[0] == correctOption
                           ? COLORS.success
@@ -248,7 +249,7 @@ export default function Quiz({navigation}) {
                     onPress={() => validateAnswer(options[1])}
                     disabled={isOptionDisabled}
                     style={{
-                      paddingVertical: 12,
+                      paddingVertical: "2%",
                       paddingHorizontal: 20,
                       borderRadius: 20,
                       borderWidth: 3,
@@ -256,7 +257,7 @@ export default function Quiz({navigation}) {
                       flexDirection: 'row',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      height: 60,
+                      // height: "1%",
                       borderColor:
                         options[1] == correctOption
                           ? COLORS.success
@@ -320,7 +321,7 @@ export default function Quiz({navigation}) {
                     onPress={() => validateAnswer(options[2])}
                     disabled={isOptionDisabled}
                     style={{
-                      paddingVertical: 12,
+                      paddingVertical: "2%",
                       paddingHorizontal: 20,
                       borderRadius: 20,
                       borderWidth: 3,
@@ -328,7 +329,7 @@ export default function Quiz({navigation}) {
                       flexDirection: 'row',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      height: 60,
+                      // height: 60,
                       borderColor:
                         options[2] == correctOption
                           ? COLORS.success
@@ -392,7 +393,7 @@ export default function Quiz({navigation}) {
                     onPress={() => validateAnswer(options[3])}
                     disabled={isOptionDisabled}
                     style={{
-                      paddingVertical: 12,
+                      paddingVertical: "2%",
                       paddingHorizontal: 20,
                       borderRadius: 20,
                       borderWidth: 3,
@@ -400,7 +401,7 @@ export default function Quiz({navigation}) {
                       flexDirection: 'row',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      height: 60,
+                      // height: 60,
                       borderColor:
                         options[3] == correctOption
                           ? COLORS.success
@@ -500,7 +501,6 @@ export default function Quiz({navigation}) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 20,
     paddingVertical: 5,
     paddingHorizontal: 16,
     height: '100%',
@@ -517,7 +517,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   Que: {
-    margin: 5,
     backgroundColor: COLORS.secondary + '20',
     borderRadius: 12,
     width: '90%',
@@ -526,7 +525,7 @@ const styles = StyleSheet.create({
   },
   questionbox: {
     backgroundColor: '#AEE1F950',
-    padding: 12,
+    padding: "2%",
     borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
@@ -546,7 +545,7 @@ const styles = StyleSheet.create({
   },
   options: {
     marginVertical: 16,
-    flex: 1,
+    flex: 4,
   },
   bottom: {
     paddingVertical: 12,
@@ -569,7 +568,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     backgroundColor: '#2e5cb890',
-    padding: 12,
+    padding: "4%",
     marginVertical: 30,
     paddingHorizontal: 16,
     borderRadius: 16,
