@@ -3,25 +3,24 @@ import {StyleSheet, Text, View} from 'react-native';
 import { useEffect } from 'react';
 import {TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {BannerAdSize, BannerAd, TestIds, useInterstitialAd} from 'react-native-google-mobile-ads';
-
+import { BannerAd, TestIds, BannerAdSize } from '@react-native-admob/admob';
 export default function Rules({navigation}) {
 
-  const { isLoaded, isClosed, load, show } = useInterstitialAd(TestIds.Interstitial, {
-    requestNonPersonalizedAdsOnly: true,
-  });
+  // const { isLoaded, isClosed, load, show } = useInterstitialAd(TestIds.Interstitial, {
+  //   requestNonPersonalizedAdsOnly: true,
+  // });
 
-  useEffect(() => {
-    // Start loading the interstitial straight away
-    load();
-  }, [load]);
+  // useEffect(() => {
+  //   // Start loading the interstitial straight away
+  //   load();
+  // }, [load]);
 
-  useEffect(() => {
-    if (isClosed) {
-      // Action after the ad is closed
-      navigation.navigate('SelectCategory');
-    }
-  }, [isClosed, navigation]);
+  // useEffect(() => {
+  //   if (isClosed) {
+  //     // Action after the ad is closed
+  //     navigation.navigate('SelectCategory');
+  //   }
+  // }, [isClosed, navigation]);
 
   return (
     <LinearGradient

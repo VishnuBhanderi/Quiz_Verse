@@ -5,25 +5,24 @@ import {useEffect} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import Title from '../Components/Title';
 import LottieView from 'lottie-react-native';
-import { useInterstitialAd, TestIds } from 'react-native-google-mobile-ads';
+import { useInterstitialAd, TestIds } from '@react-native-admob/admob';
 
 export default function Home({navigation}) {
-  const { isLoaded, isClosed, load, show } = useInterstitialAd(TestIds.Interstitial, {
-    requestNonPersonalizedAdsOnly: true,
-  });
+  const { adLoaded, adDismissed, show } = useInterstitialAd(
+    TestIds.REWARDED_INTERSTITIAL,
+    {
+      requestOptions: {
+        requestNonPersonalizedAdsOnly: true,
+      },
+    }
+  );
 
   useEffect(() => {
-    // Start loading the interstitial straight away
-    load();
-  }, [load]);
-
-  useEffect(() => {
-    if (isClosed) {
-      console.log('Closed');
-      // Action after the ad is closed
+    if (adDismissed) {
+      console.log('adDismissed');
       navigation.navigate('Rules');
     }
-  }, [isClosed, navigation]);
+  }, [adDismissed, navigation]);
   
   return (
     <LinearGradient
@@ -45,7 +44,7 @@ export default function Home({navigation}) {
         </View>
 
         <TouchableOpacity onPress={() => {
-          if (isLoaded) {
+          if (adLoaded) {
             show();
           } else {
             // No advert ready to show yet

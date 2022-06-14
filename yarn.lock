@@ -1361,6 +1361,13 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@react-native-admob/admob@^2.0.1":
+  "integrity" "sha512-IHDzwC9n+15w3Cg03oWB4rHXyUpkTFyoP3gPEzVbZEnPDyUdl1eacmM66MovNoVc5m6h7pXNa0AXzgL+yIEW7A=="
+  "resolved" "https://registry.npmjs.org/@react-native-admob/admob/-/admob-2.0.1.tgz"
+  "version" "2.0.1"
+  dependencies:
+    "use-deep-compare-effect" "^1.8.1"
+
 "@react-native-community/cli-debugger-ui@^7.0.3":
   "integrity" "sha512-G4SA6jFI0j22o+j+kYP8/7sxzbCDqSp2QiHA/X5E0lsGEd2o9qN2zbIjiFr8b8k+VVAYSUONhoC0+uKuINvmkA=="
   "resolved" "https://registry.npmjs.org/@react-native-community/cli-debugger-ui/-/cli-debugger-ui-7.0.3.tgz"
