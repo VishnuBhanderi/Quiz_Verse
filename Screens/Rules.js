@@ -1,10 +1,28 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import { useEffect } from 'react';
 import {TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {BannerAdSize, BannerAd, TestIds} from 'react-native-google-mobile-ads';
+import {BannerAdSize, BannerAd, TestIds, useInterstitialAd} from 'react-native-google-mobile-ads';
 
 export default function Rules({navigation}) {
+
+  const { isLoaded, isClosed, load, show } = useInterstitialAd(TestIds.Interstitial, {
+    requestNonPersonalizedAdsOnly: true,
+  });
+
+  useEffect(() => {
+    // Start loading the interstitial straight away
+    load();
+  }, [load]);
+
+  useEffect(() => {
+    if (isClosed) {
+      // Action after the ad is closed
+      navigation.navigate('SelectCategory');
+    }
+  }, [isClosed, navigation]);
+
   return (
     <LinearGradient
       colors={['#0D324D', '#7F5A83']}
@@ -39,7 +57,14 @@ export default function Rules({navigation}) {
 
         <Text style={styles.BestofLuck}>Best Of Luck</Text>
 
-        <TouchableOpacity onPress={() => navigation.navigate('SelectCategory')}>
+        <TouchableOpacity onPress={() => {
+          if (isLoaded) {
+            show();
+          } else {
+            // No advert ready to show yet
+            navigation.navigate('SelectCategory');
+          }
+        }}>
           <View style={styles.button}>
             <Text style={styles.buttonText}>Let's Start the Quiz</Text>
           </View>

@@ -1,41 +1,29 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native';
-import {useState} from 'react';
 import {useEffect} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import Title from '../Components/Title';
 import LottieView from 'lottie-react-native';
-// import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile-ads';
-
-// const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy';
-
-// const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
-//   requestNonPersonalizedAdsOnly: true,
-//   keywords: ['fashion', 'clothing'],
-// });
+import { useInterstitialAd, TestIds } from 'react-native-google-mobile-ads';
 
 export default function Home({navigation}) {
+  const { isLoaded, isClosed, load, show } = useInterstitialAd(TestIds.Interstitial, {
+    requestNonPersonalizedAdsOnly: true,
+  });
 
-  // const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    // Start loading the interstitial straight away
+    load();
+  }, [load]);
 
-  // useEffect(() => {
-  //   const unsubscribe = interstitial.addAdEventListener(AdEventType.LOADED, () => {
-  //     setLoaded(true);
-  //   });
-
-  //   // Start loading the interstitial straight away
-  //   interstitial.load();
-
-  //   // Unsubscribe from events on unmount
-  //   return unsubscribe;
-  // }, []);
-
-  // // No advert ready to show yet
-  // if (!loaded) {
-  //   return null;
-  // }
-
+  useEffect(() => {
+    if (isClosed) {
+      console.log('Closed');
+      // Action after the ad is closed
+      navigation.navigate('Rules');
+    }
+  }, [isClosed, navigation]);
   
   return (
     <LinearGradient
@@ -56,7 +44,15 @@ export default function Home({navigation}) {
           />
         </View>
 
-        <TouchableOpacity onPress={() => navigation.navigate('Rules')}>
+        <TouchableOpacity onPress={() => {
+          if (isLoaded) {
+            show();
+          } else {
+            // No advert ready to show yet
+            console.log('Not Loaded');
+            navigation.navigate('Rules');
+          }
+        }}>
           <View style={styles.button}>
             <Text style={styles.buttonText}>START</Text>
           </View>

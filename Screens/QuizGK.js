@@ -39,9 +39,11 @@ export default function Quiz({navigation}) {
   const [isLoading, setIsLoading] = useState(false);
   const [showNextButton, setShowNextButton] = useState(false);
   const [isOptionDisabled, setIsOptionDisabled] = useState(false);
+  const [isRewarded, setIsRewarded] = useState(false);
   const [currentOptionSelected, setCurrentOptionSelected] = useState(null);
   const [correctOption, setCorrectOption] = useState(null);
 
+  
   const getQuiz = async () => {
     setIsLoading(true);
     const url =
@@ -89,6 +91,34 @@ export default function Quiz({navigation}) {
     navigation.navigate('Result', {score: score});
   };
 
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
+      setLoaded(true);
+    });
+    const unsubscribeEarned = rewarded.addAdEventListener(
+      RewardedAdEventType.EARNED_REWARD,
+      reward => {
+        console.log('User earned reward of ', reward);
+      },
+    );
+      
+    // Start loading the rewarded ad straight away
+    rewarded.load();
+
+    // Unsubscribe from events on unmount
+    return () => {
+      unsubscribeLoaded();
+      unsubscribeEarned();
+    };
+  }, []);
+
+  // No advert ready to show yet
+  if (!loaded) {
+    return null;
+  }
+
   return (
     <>
       <LinearGradient
@@ -111,6 +141,32 @@ export default function Quiz({navigation}) {
           ) : (
             questions && (
               <View style={styles.parent}>
+                {!showNextButton ? ( <View>
+                    <TouchableOpacity
+                      style={styles.hint}
+                      onPress={() => {
+                        rewarded.show();
+                      }}>
+                      <View
+                        style={{
+                          width: 30,
+                          height: 30,
+                          borderRadius: 30 / 2,
+                          backgroundColor: COLORS.success1,
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          alignSelf: 'center',
+                        }}>
+                        <MaterialCommunityIcons
+                          name="hint"
+                          style={{
+                            color: COLORS.white,
+                            fontSize: 20,
+                          }}
+                        />
+                      </View>
+                    </TouchableOpacity>
+                  </View>) : null}
                 <View style={styles.questionbox}>
                   <View style={styles.Que}>
                     <Text style={styles.Quet}>
