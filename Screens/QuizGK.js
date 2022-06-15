@@ -11,15 +11,12 @@ import {
   BannerAdSize,
   BannerAd,
   TestIds,
-  RewardedAd,
-  RewardedAdEventType,
   useRewardedAd,
 } from 'react-native-google-mobile-ads';
 import {ScrollView} from 'react-native-gesture-handler';
 
-const adUnitId = __DEV__
-  ? TestIds.REWARDED
-  : 'ca-app-pub-xxxxxxxxxxxxxxxx/yyyyyyyyyy';
+const adUnitId = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-7528260341883951/4387318403';
+const BannerAdUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-7528260341883951/4493477227';
 const shuffleArray = array => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -126,7 +123,10 @@ export default function Quiz({navigation}) {
         <View style={{position: 'absolute', bottom: 0, alignSelf: 'center'}}>
           <BannerAd
             size={BannerAdSize.BANNER}
-            unitId={TestIds.BANNER}
+            unitId={BannerAdUnitId}
+            requestOptions={{
+              requestNonPersonalizedAdsOnly: true,
+            }}
           />
         </View>
         <View style={styles.container}>

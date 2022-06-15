@@ -2,12 +2,12 @@ import React from 'react';
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {
-  BannerAdSize,
-  BannerAd,
-  TestIds,
-} from 'react-native-google-mobile-ads';
-import { ScrollView } from 'react-native-gesture-handler';
+import {BannerAdSize, BannerAd, TestIds} from 'react-native-google-mobile-ads';
+import {ScrollView} from 'react-native-gesture-handler';
+
+const BannerAdUnitId = __DEV__
+  ? TestIds.BANNER
+  : 'ca-app-pub-7528260341883951/5806558897';
 
 export default function SelectCategory({navigation}) {
   return (
@@ -16,71 +16,78 @@ export default function SelectCategory({navigation}) {
       style={styles.container}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}>
-        <View style={{position: 'absolute', bottom: 0, alignSelf: 'center'}}>
-        <BannerAd size={BannerAdSize.BANNER} unitId={TestIds.BANNER} />
+      <View style={{position: 'absolute', bottom: 0, alignSelf: 'center'}}>
+        <BannerAd
+          size={BannerAdSize.BANNER}
+          unitId={BannerAdUnitId}
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+          }}
+        />
       </View>
       <View style={styles.container}>
         <View style={styles.heading}>
           <Text style={styles.Title}>Select Category</Text>
         </View>
-        <ScrollView style={{height:Dimensions.get("screen").height*0.8}}>
-        <View style={styles.categories}>
-          <TouchableOpacity onPress={() => navigation.navigate('QuizGK')}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>General Knowledge</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('QuizSN')}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Science & Nature</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('QuizCom')}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Computers</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('QuizVG')}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Video Games</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('QuizMyth')}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Mythology</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('QuizSport')}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Sports</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('QuizHistory')}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>History</Text>
+        <ScrollView style={{height: Dimensions.get('screen').height * 0.8}}>
+          <View style={styles.categories}>
+            <TouchableOpacity onPress={() => navigation.navigate('QuizGK')}>
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>General Knowledge</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('QuizSN')}>
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>Science & Nature</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('QuizCom')}>
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>Computers</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('QuizVG')}>
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>Video Games</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('QuizMyth')}>
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>Mythology</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('QuizSport')}>
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>Sports</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('QuizHistory')}>
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>History</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('QuizMusic')}>
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>Music</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('QuizGeo')}>
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>Geography</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('QuizV')}>
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>Vehicles</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('QuizCA')}>
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>Cartoon & Animations</Text>
+              </View>
+            </TouchableOpacity>
           </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('QuizMusic')}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Music</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('QuizGeo')}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Geography</Text>
-          </View>
-        </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('QuizV')}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Vehicles</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('QuizCA')}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Cartoon & Animations</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
         </ScrollView>
       </View>
     </LinearGradient>
@@ -89,25 +96,25 @@ export default function SelectCategory({navigation}) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: "1%",
+    paddingTop: '1%',
     // paddingVertical: "0%",
-    paddingBottom: "10%",
+    paddingBottom: '10%',
     height: '100%',
-    flex:1,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   heading: {
-    marginTop:'3%',
+    marginTop: '3%',
     // marginBottom:"10%"
   },
 
   categories: {
-    flex:10,
-    height:"100%",
-    marginTop:"5%",
+    flex: 10,
+    height: '100%',
+    marginTop: '5%',
     justifyContent: 'center',
-    alignItems: 'center', 
+    alignItems: 'center',
   },
 
   Title: {
@@ -122,13 +129,12 @@ const styles = StyleSheet.create({
   },
 
   button: {
-
     width: 300,
     backgroundColor: '#7F5A83',
     borderColor: '#d45ee0',
-    borderWidth:3,
-    padding: "2%",
-    paddingHorizontal: "10%",
+    borderWidth: 3,
+    padding: '2%',
+    paddingHorizontal: '10%',
     borderRadius: 16,
     alignItems: 'center',
     marginBottom: 5,
