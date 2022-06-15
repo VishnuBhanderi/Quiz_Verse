@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {
@@ -7,6 +7,7 @@ import {
   BannerAd,
   TestIds,
 } from 'react-native-google-mobile-ads';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function SelectCategory({navigation}) {
   return (
@@ -16,13 +17,13 @@ export default function SelectCategory({navigation}) {
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}>
         <View style={{position: 'absolute', bottom: 0, alignSelf: 'center'}}>
-        <BannerAd size={BannerAdSize.BANNER} unitId={'ca-app-pub-7528260341883951/5806558897'} />
+        <BannerAd size={BannerAdSize.BANNER} unitId={TestIds.BANNER} />
       </View>
       <View style={styles.container}>
         <View style={styles.heading}>
           <Text style={styles.Title}>Select Category</Text>
         </View>
-
+        <ScrollView style={{height:Dimensions.get("screen").height*0.8}}>
         <View style={styles.categories}>
           <TouchableOpacity onPress={() => navigation.navigate('QuizGK')}>
             <View style={styles.button}>
@@ -80,6 +81,7 @@ export default function SelectCategory({navigation}) {
             </View>
           </TouchableOpacity>
         </View>
+        </ScrollView>
       </View>
     </LinearGradient>
   );
@@ -91,22 +93,21 @@ const styles = StyleSheet.create({
     // paddingVertical: "0%",
     paddingBottom: "10%",
     height: '100%',
+    flex:1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   heading: {
-    marginTop:'5%',
-    flex: 1,
+    marginTop:'3%',
     // marginBottom:"10%"
   },
 
   categories: {
-    flex:11,
+    flex:10,
     height:"100%",
     marginTop:"5%",
     justifyContent: 'center',
-    alignItems: 'center',
-    
+    alignItems: 'center', 
   },
 
   Title: {

@@ -1,9 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native';
-import {useEffect} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import Title from '../Components/Title';
 import LottieView from 'lottie-react-native';
 
 export default function Home({navigation}) {
@@ -14,9 +12,10 @@ export default function Home({navigation}) {
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}>
       <View style={styles.container}>
-        <Text>
-          <Title style={styles.title} />
-        </Text>
+      <View style={styles.heading}>
+          <Text style={styles.Title}>QuizVerse</Text>
+          <Text style={styles.Tagline}>Unlocking knowledge at the speed of thought</Text>
+        </View>
 
         <View style={styles.bannerContainer}>
           <LottieView
@@ -48,6 +47,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  Tagline:{
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginTop:'2%',
+    textAlign:'center',
+    fontFamily: 'roboto',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    alignItems: 'center',
+  },
+  Title: {
+    fontSize: 36,
+    fontWeight: '900',
+    color: '#2ba4fc',
+    fontFamily: 'serif',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    alignItems: 'center',
+  },
   banner: {
     height: '100%',
     width: '100%',
@@ -56,6 +75,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
+    flexDirection:'row',
   },
   button: {
     margin: '10%',

@@ -10,9 +10,10 @@ import {
   BannerAd,
   TestIds,
 } from 'react-native-google-mobile-ads';
+import { ScrollView } from 'react-native-gesture-handler';
 
-const adUnitBottom = 'ca-app-pub-7528260341883951/6381273964';
-const adUnitTop = 'ca-app-pub-7528260341883951/4876620603';
+const adUnitBottom = TestIds.BANNER;
+const adUnitTop = TestIds.BANNER;
 
 export default function Rules({navigation}) {
   return (
@@ -40,6 +41,7 @@ export default function Rules({navigation}) {
       }}
     />
       </View>
+      <ScrollView>
       <View style={styles.container}>
         <Text style={styles.titel}>Rules</Text>
 
@@ -68,6 +70,7 @@ export default function Rules({navigation}) {
           </View>
         </TouchableOpacity>
       </View>
+      </ScrollView>
     </LinearGradient>
   );
 }
@@ -78,6 +81,7 @@ const styles = StyleSheet.create({
     paddingVertical: "10%",
     paddingBottom: "5%",
     height: '100%',
+    flex:1,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -90,6 +94,7 @@ const styles = StyleSheet.create({
 
   titel: {
     fontSize: 36,
+    flex:1,
     fontWeight: '900',
     color: '#2ba4fc',
     fontFamily: 'serif',
@@ -99,12 +104,14 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
   },
   BestofLuck: {
+    flex:1,
     fontSize: 40,
     fontFamily: 'serif',
     fontWeight: '600',
     color: 'white',
   },
   Rules: {
+    flex:8,
     marginVertical: "15%",
   },
   evaluationScheme: {

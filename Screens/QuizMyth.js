@@ -15,8 +15,11 @@ import {
   RewardedAdEventType,
   useRewardedAd,
 } from 'react-native-google-mobile-ads';
+import {ScrollView} from 'react-native-gesture-handler';
 
-const adUnitId = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-7528260341883951/8873358323';
+const adUnitId = __DEV__
+  ? TestIds.REWARDED
+  : 'ca-app-pub-xxxxxxxxxxxxxxxx/yyyyyyyyyy';
 const shuffleArray = array => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -92,7 +95,7 @@ export default function Quiz({navigation}) {
   useEffect(() => {
     if (isClosed) {
       setIsRewarded(true);
-      setScore(score+10);
+      setScore(score + 10);
       console.log('User earned reward of ');
       load();
     }
@@ -121,7 +124,10 @@ export default function Quiz({navigation}) {
         start={{x: 0, y: 0}}
         end={{x: 1, y: 1}}>
         <View style={{position: 'absolute', bottom: 0, alignSelf: 'center'}}>
-          <BannerAd size={BannerAdSize.BANNER} unitId={'ca-app-pub-7528260341883951/8241150547'} />
+          <BannerAd
+            size={BannerAdSize.BANNER}
+            unitId={TestIds.BANNER}
+          />
         </View>
         <View style={styles.container}>
           {isLoading ? (
@@ -135,336 +141,375 @@ export default function Quiz({navigation}) {
           ) : (
             questions && (
               <View style={styles.parent}>
-                {!showNextButton ? (
-                  <View>
-                    <TouchableOpacity style={styles.hint} onPress={onPress}>
-                      <View
-                        style={{
-                          width: 30,
-                          height: 30,
-                          borderRadius: 30 / 2,
-                          backgroundColor: COLORS.success1,
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          alignSelf: 'center',
-                        }}>
-                        <MaterialCommunityIcons
-                          name="key"
+                <ScrollView>
+                  {!showNextButton ? (
+                    <View>
+                      <TouchableOpacity style={styles.hint} onPress={onPress}>
+                        <View
                           style={{
-                            color: COLORS.white,
-                            fontSize: 20,
-                          }}
-                        />
-                      </View>
+                            width: 30,
+                            height: 30,
+                            borderRadius: 30 / 2,
+                            backgroundColor: COLORS.success1,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            alignSelf: 'center',
+                          }}>
+                          <MaterialCommunityIcons
+                            name="key"
+                            style={{
+                              color: COLORS.white,
+                              fontSize: 20,
+                            }}
+                          />
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                  ) : null}
+                  <View
+                    style={{
+                      backgroundColor:
+                        score < 40
+                          ? COLORS.error1
+                          : score >= 40
+                          ? COLORS.success1
+                          : COLORS.secondary + '40',
+                      width: '30%',
+                      marginBottom: '2%',
+                      alignSelf: 'center',
+                      borderRadius: 10,
+                      borderWidth: 1,
+                      borderColor:
+                        score < 40
+                          ? COLORS.error
+                          : score >= 40
+                          ? COLORS.success
+                          : COLORS.secondary + '40',
+                    }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        padding: '2%',
+                        alignSelf: 'center',
+                        color:
+                          score < 40
+                            ? COLORS.error
+                            : score >= 40
+                            ? COLORS.success
+                            : COLORS.secondary + '40',
+                      }}>
+                      Score : {decodeURIComponent(score)}
+                    </Text>
+                  </View>
+                  <View style={styles.questionbox}>
+                    <View style={styles.Que}>
+                      <Text style={styles.Quet}>
+                        Question - {decodeURIComponent(ques + 1)}
+                      </Text>
+                    </View>
+                    <View style={styles.top}>
+                      <Text style={styles.question}>
+                        {decodeURIComponent(questions[ques].question)}
+                      </Text>
+                    </View>
+                  </View>
+
+                  <View style={styles.options}>
+                    <TouchableOpacity
+                      onPress={() => validateAnswer(options[0])}
+                      disabled={isOptionDisabled}
+                      style={{
+                        paddingVertical: '2%',
+                        paddingHorizontal: 20,
+                        borderRadius: 20,
+                        borderWidth: 3,
+                        marginVertical: 10,
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        // height: 60,
+                        borderColor:
+                          options[0] == correctOption
+                            ? COLORS.success
+                            : options[0] == currentOptionSelected &&
+                              isRewarded == false
+                            ? COLORS.error
+                            : COLORS.secondary + '40',
+                        marginVertical: 6,
+                        backgroundColor:
+                          options[0] == correctOption
+                            ? COLORS.success1
+                            : options[0] == currentOptionSelected &&
+                              isRewarded == false
+                            ? COLORS.error1
+                            : COLORS.secondary + '20',
+                      }}>
+                      <Text style={styles.option}>
+                        {decodeURIComponent(options[0])}
+                      </Text>
+                      {/* Show Check or Cross Icon based on correct answer */}
+                      {options[0] == correctOption ? (
+                        <View
+                          style={{
+                            width: 30,
+                            height: 30,
+                            borderRadius: 30 / 2,
+                            backgroundColor: COLORS.success,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                          }}>
+                          <MaterialCommunityIcons
+                            name="check"
+                            style={{
+                              color: COLORS.white,
+                              fontSize: 20,
+                            }}
+                          />
+                        </View>
+                      ) : options[0] == currentOptionSelected &&
+                        isRewarded == false ? (
+                        <View
+                          style={{
+                            width: 30,
+                            height: 30,
+                            borderRadius: 30 / 2,
+                            backgroundColor: COLORS.error,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                          }}>
+                          <MaterialCommunityIcons
+                            name="close"
+                            style={{
+                              color: COLORS.white,
+                              fontSize: 20,
+                            }}
+                          />
+                        </View>
+                      ) : null}
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => validateAnswer(options[1])}
+                      disabled={isOptionDisabled}
+                      style={{
+                        paddingVertical: '2%',
+                        paddingHorizontal: 20,
+                        borderRadius: 20,
+                        borderWidth: 3,
+                        marginVertical: 10,
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        // height: "1%",
+                        borderColor:
+                          options[1] == correctOption
+                            ? COLORS.success
+                            : options[1] == currentOptionSelected &&
+                              isRewarded == false
+                            ? COLORS.error
+                            : COLORS.secondary + '40',
+                        marginVertical: 6,
+                        backgroundColor:
+                          options[1] == correctOption
+                            ? COLORS.success1
+                            : options[1] == currentOptionSelected &&
+                              isRewarded == false
+                            ? COLORS.error1
+                            : COLORS.secondary + '20',
+                      }}>
+                      <Text style={styles.option}>
+                        {decodeURIComponent(options[1])}
+                      </Text>
+                      {/* Show Check or Cross Icon based on correct answer */}
+                      {options[1] == correctOption ? (
+                        <View
+                          style={{
+                            width: 30,
+                            height: 30,
+                            borderRadius: 30 / 2,
+                            backgroundColor: COLORS.success,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                          }}>
+                          <MaterialCommunityIcons
+                            name="check"
+                            style={{
+                              color: COLORS.white,
+                              fontSize: 20,
+                            }}
+                          />
+                        </View>
+                      ) : options[1] == currentOptionSelected &&
+                        isRewarded == false ? (
+                        <View
+                          style={{
+                            width: 30,
+                            height: 30,
+                            borderRadius: 30 / 2,
+                            backgroundColor: COLORS.error,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                          }}>
+                          <MaterialCommunityIcons
+                            name="close"
+                            style={{
+                              color: COLORS.white,
+                              fontSize: 20,
+                            }}
+                          />
+                        </View>
+                      ) : null}
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => validateAnswer(options[2])}
+                      disabled={isOptionDisabled}
+                      style={{
+                        paddingVertical: '2%',
+                        paddingHorizontal: 20,
+                        borderRadius: 20,
+                        borderWidth: 3,
+                        marginVertical: 10,
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        // height: 60,
+                        borderColor:
+                          options[2] == correctOption
+                            ? COLORS.success
+                            : options[2] == currentOptionSelected &&
+                              isRewarded == false
+                            ? COLORS.error
+                            : COLORS.secondary + '40',
+                        marginVertical: 6,
+                        backgroundColor:
+                          options[2] == correctOption
+                            ? COLORS.success1
+                            : options[2] == currentOptionSelected &&
+                              isRewarded == false
+                            ? COLORS.error1
+                            : COLORS.secondary + '20',
+                      }}>
+                      <Text style={styles.option}>
+                        {decodeURIComponent(options[2])}
+                      </Text>
+                      {/* Show Check or Cross Icon based on correct answer */}
+                      {options[2] == correctOption ? (
+                        <View
+                          style={{
+                            width: 30,
+                            height: 30,
+                            borderRadius: 30 / 2,
+                            backgroundColor: COLORS.success,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                          }}>
+                          <MaterialCommunityIcons
+                            name="check"
+                            style={{
+                              color: COLORS.white,
+                              fontSize: 20,
+                            }}
+                          />
+                        </View>
+                      ) : options[2] == currentOptionSelected &&
+                        isRewarded == false ? (
+                        <View
+                          style={{
+                            width: 30,
+                            height: 30,
+                            borderRadius: 30 / 2,
+                            backgroundColor: COLORS.error,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                          }}>
+                          <MaterialCommunityIcons
+                            name="close"
+                            style={{
+                              color: COLORS.white,
+                              fontSize: 20,
+                            }}
+                          />
+                        </View>
+                      ) : null}
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => validateAnswer(options[3])}
+                      disabled={isOptionDisabled}
+                      style={{
+                        paddingVertical: '2%',
+                        paddingHorizontal: 20,
+                        borderRadius: 20,
+                        borderWidth: 3,
+                        marginVertical: 10,
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        // height: 60,
+                        borderColor:
+                          options[3] == correctOption
+                            ? COLORS.success
+                            : options[3] == currentOptionSelected &&
+                              isRewarded == false
+                            ? COLORS.error
+                            : COLORS.secondary + '40',
+                        marginVertical: 6,
+                        backgroundColor:
+                          options[3] == correctOption
+                            ? COLORS.success1
+                            : options[3] == currentOptionSelected &&
+                              isRewarded == false
+                            ? COLORS.error1
+                            : COLORS.secondary + '20',
+                      }}>
+                      <Text style={styles.option}>
+                        {decodeURIComponent(options[3])}
+                      </Text>
+                      {/* Show Check or Cross Icon based on correct answer */}
+                      {options[3] == correctOption ? (
+                        <View
+                          style={{
+                            width: 30,
+                            height: 30,
+                            borderRadius: 30 / 2,
+                            backgroundColor: COLORS.success,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                          }}>
+                          <MaterialCommunityIcons
+                            name="check"
+                            style={{
+                              color: COLORS.white,
+                              fontSize: 20,
+                            }}
+                          />
+                        </View>
+                      ) : options[3] == currentOptionSelected &&
+                        isRewarded == false ? (
+                        <View
+                          style={{
+                            width: 30,
+                            height: 30,
+                            borderRadius: 30 / 2,
+                            backgroundColor: COLORS.error,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                          }}>
+                          <MaterialCommunityIcons
+                            name="close"
+                            style={{
+                              color: COLORS.white,
+                              fontSize: 20,
+                            }}
+                          />
+                        </View>
+                      ) : null}
                     </TouchableOpacity>
                   </View>
-                ) : null}
-                <View style={styles.questionbox}>
-                  <View style={styles.Que}>
-                    <Text style={styles.Quet}>
-                      Question - {decodeURIComponent(ques + 1)}
-                    </Text>
-                  </View>
-                  <View style={styles.top}>
-                    <Text style={styles.question}>
-                      {decodeURIComponent(questions[ques].question)}
-                    </Text>
-                  </View>
-                </View>
-
-                <View style={styles.options}>
-                  <TouchableOpacity
-                    onPress={() => validateAnswer(options[0])}
-                    disabled={isOptionDisabled}
-                    style={{
-                      paddingVertical: "2%",
-                      paddingHorizontal: 20,
-                      borderRadius: 20,
-                      borderWidth: 3,
-                      marginVertical: 10,
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      // height: 60,
-                      borderColor:
-                        options[0] == correctOption
-                          ? COLORS.success
-                          : options[0] == currentOptionSelected &&
-                            isRewarded == false
-                          ? COLORS.error
-                          : COLORS.secondary + '40',
-                      marginVertical: 6,
-                      backgroundColor:
-                        options[0] == correctOption
-                          ? COLORS.success1
-                          : options[0] == currentOptionSelected &&
-                            isRewarded == false
-                          ? COLORS.error1
-                          : COLORS.secondary + '20',
-                    }}>
-                    <Text style={styles.option}>
-                      {decodeURIComponent(options[0])}
-                    </Text>
-                    {/* Show Check or Cross Icon based on correct answer */}
-                    {options[0] == correctOption ? (
-                      <View
-                        style={{
-                          width: 30,
-                          height: 30,
-                          borderRadius: 30 / 2,
-                          backgroundColor: COLORS.success,
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                        }}>
-                        <MaterialCommunityIcons
-                          name="check"
-                          style={{
-                            color: COLORS.white,
-                            fontSize: 20,
-                          }}
-                        />
-                      </View>
-                    ) : options[0] == currentOptionSelected &&
-                      isRewarded == false ? (
-                      <View
-                        style={{
-                          width: 30,
-                          height: 30,
-                          borderRadius: 30 / 2,
-                          backgroundColor: COLORS.error,
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                        }}>
-                        <MaterialCommunityIcons
-                          name="close"
-                          style={{
-                            color: COLORS.white,
-                            fontSize: 20,
-                          }}
-                        />
-                      </View>
-                    ) : null}
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => validateAnswer(options[1])}
-                    disabled={isOptionDisabled}
-                    style={{
-                      paddingVertical: "2%",
-                      paddingHorizontal: 20,
-                      borderRadius: 20,
-                      borderWidth: 3,
-                      marginVertical: 10,
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      // height: "1%",
-                      borderColor:
-                        options[1] == correctOption
-                          ? COLORS.success
-                          : options[1] == currentOptionSelected &&
-                            isRewarded == false
-                          ? COLORS.error
-                          : COLORS.secondary + '40',
-                      marginVertical: 6,
-                      backgroundColor:
-                        options[1] == correctOption
-                          ? COLORS.success1
-                          : options[1] == currentOptionSelected &&
-                            isRewarded == false
-                          ? COLORS.error1
-                          : COLORS.secondary + '20',
-                    }}>
-                    <Text style={styles.option}>
-                      {decodeURIComponent(options[1])}
-                    </Text>
-                    {/* Show Check or Cross Icon based on correct answer */}
-                    {options[1] == correctOption ? (
-                      <View
-                        style={{
-                          width: 30,
-                          height: 30,
-                          borderRadius: 30 / 2,
-                          backgroundColor: COLORS.success,
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                        }}>
-                        <MaterialCommunityIcons
-                          name="check"
-                          style={{
-                            color: COLORS.white,
-                            fontSize: 20,
-                          }}
-                        />
-                      </View>
-                    ) : options[1] == currentOptionSelected &&
-                      isRewarded == false ? (
-                      <View
-                        style={{
-                          width: 30,
-                          height: 30,
-                          borderRadius: 30 / 2,
-                          backgroundColor: COLORS.error,
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                        }}>
-                        <MaterialCommunityIcons
-                          name="close"
-                          style={{
-                            color: COLORS.white,
-                            fontSize: 20,
-                          }}
-                        />
-                      </View>
-                    ) : null}
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => validateAnswer(options[2])}
-                    disabled={isOptionDisabled}
-                    style={{
-                      paddingVertical: "2%",
-                      paddingHorizontal: 20,
-                      borderRadius: 20,
-                      borderWidth: 3,
-                      marginVertical: 10,
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      // height: 60,
-                      borderColor:
-                        options[2] == correctOption
-                          ? COLORS.success
-                          : options[2] == currentOptionSelected &&
-                            isRewarded == false
-                          ? COLORS.error
-                          : COLORS.secondary + '40',
-                      marginVertical: 6,
-                      backgroundColor:
-                        options[2] == correctOption
-                          ? COLORS.success1
-                          : options[2] == currentOptionSelected &&
-                            isRewarded == false
-                          ? COLORS.error1
-                          : COLORS.secondary + '20',
-                    }}>
-                    <Text style={styles.option}>
-                      {decodeURIComponent(options[2])}
-                    </Text>
-                    {/* Show Check or Cross Icon based on correct answer */}
-                    {options[2] == correctOption ? (
-                      <View
-                        style={{
-                          width: 30,
-                          height: 30,
-                          borderRadius: 30 / 2,
-                          backgroundColor: COLORS.success,
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                        }}>
-                        <MaterialCommunityIcons
-                          name="check"
-                          style={{
-                            color: COLORS.white,
-                            fontSize: 20,
-                          }}
-                        />
-                      </View>
-                    ) : options[2] == currentOptionSelected &&
-                      isRewarded == false ? (
-                      <View
-                        style={{
-                          width: 30,
-                          height: 30,
-                          borderRadius: 30 / 2,
-                          backgroundColor: COLORS.error,
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                        }}>
-                        <MaterialCommunityIcons
-                          name="close"
-                          style={{
-                            color: COLORS.white,
-                            fontSize: 20,
-                          }}
-                        />
-                      </View>
-                    ) : null}
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => validateAnswer(options[3])}
-                    disabled={isOptionDisabled}
-                    style={{
-                      paddingVertical: "2%",
-                      paddingHorizontal: 20,
-                      borderRadius: 20,
-                      borderWidth: 3,
-                      marginVertical: 10,
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      // height: 60,
-                      borderColor:
-                        options[3] == correctOption
-                          ? COLORS.success
-                          : options[3] == currentOptionSelected &&
-                            isRewarded == false
-                          ? COLORS.error
-                          : COLORS.secondary + '40',
-                      marginVertical: 6,
-                      backgroundColor:
-                        options[3] == correctOption
-                          ? COLORS.success1
-                          : options[3] == currentOptionSelected &&
-                            isRewarded == false
-                          ? COLORS.error1
-                          : COLORS.secondary + '20',
-                    }}>
-                    <Text style={styles.option}>
-                      {decodeURIComponent(options[3])}
-                    </Text>
-                    {/* Show Check or Cross Icon based on correct answer */}
-                    {options[3] == correctOption ? (
-                      <View
-                        style={{
-                          width: 30,
-                          height: 30,
-                          borderRadius: 30 / 2,
-                          backgroundColor: COLORS.success,
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                        }}>
-                        <MaterialCommunityIcons
-                          name="check"
-                          style={{
-                            color: COLORS.white,
-                            fontSize: 20,
-                          }}
-                        />
-                      </View>
-                    ) : options[3] == currentOptionSelected &&
-                      isRewarded == false ? (
-                      <View
-                        style={{
-                          width: 30,
-                          height: 30,
-                          borderRadius: 30 / 2,
-                          backgroundColor: COLORS.error,
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                        }}>
-                        <MaterialCommunityIcons
-                          name="close"
-                          style={{
-                            color: COLORS.white,
-                            fontSize: 20,
-                          }}
-                        />
-                      </View>
-                    ) : null}
-                  </TouchableOpacity>
-                </View>
+                </ScrollView>
                 <View
                   style={{
                     alignItems: 'center',
+                    paddingBottom: 12,
+                    marginBottom: 26,
                   }}>
                   {isRewarded && !showNextButton ? (
                     <Text
@@ -525,7 +570,7 @@ const styles = StyleSheet.create({
   },
   questionbox: {
     backgroundColor: '#AEE1F950',
-    padding: "2%",
+    padding: '2%',
     borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
@@ -548,8 +593,8 @@ const styles = StyleSheet.create({
     flex: 4,
   },
   bottom: {
-    paddingVertical: 12,
-    marginVertical: 26,
+    paddingBottom: 12,
+    marginBottom: 26,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -568,8 +613,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     backgroundColor: '#2e5cb890',
-    padding: "4%",
-    marginVertical: 30,
+    padding: '4%',
     paddingHorizontal: 16,
     borderRadius: 16,
     alignItems: 'center',
