@@ -87,7 +87,7 @@ export default function Quiz({navigation}) {
   };
 
   const {isLoaded, isClosed, load, show} = useRewardedAd(adUnitId, {
-    requestNonPersonalizedAdsOnly: true,
+     
   });
   useEffect(() => {
     load();
@@ -127,9 +127,7 @@ export default function Quiz({navigation}) {
           <BannerAd
             size={BannerAdSize.BANNER}
             unitId={BannerAdUnitId}
-            requestOptions={{
-              requestNonPersonalizedAdsOnly: true,
-            }}
+             
           />
         </View>
         <View style={styles.container}>
