@@ -1,17 +1,53 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View,  StatusBar} from 'react-native';
 import {TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import LottieView from 'lottie-react-native';
+import { useState } from 'react';
+
+const STYLES = ['default', 'dark-content', 'light-content'];
+const TRANSITIONS = ['fade', 'slide', 'none'];
 
 export default function Home({navigation}) {
+
+  const [hidden, setHidden] = useState(false);
+  const [statusBarStyle, setStatusBarStyle] = useState(STYLES[0]);
+  const [statusBarTransition, setStatusBarTransition] = useState(TRANSITIONS[0]);
+
+  const changeStatusBarVisibility = () => setHidden(!hidden);
+
+  const changeStatusBarStyle = () => {
+    const styleId = STYLES.indexOf(statusBarStyle) + 1;
+    if (styleId === STYLES.length) {
+      setStatusBarStyle(STYLES[0]);
+    } else {
+      setStatusBarStyle(STYLES[styleId]);
+    }
+  };
+
+  const changeStatusBarTransition = () => {
+    const transition = TRANSITIONS.indexOf(statusBarTransition) + 1;
+    if (transition === TRANSITIONS.length) {
+      setStatusBarTransition(TRANSITIONS[0]);
+    } else {
+      setStatusBarTransition(TRANSITIONS[transition]);
+    }
+  };
+
   return (
+    
     <LinearGradient
       colors={['#0D324D', '#7F5A83']}
       style={styles.container}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}>
       <View style={styles.container}>
+      <StatusBar
+        animated={true}
+        backgroundColor='#0D324D'
+        barStyle={statusBarStyle}
+        showHideTransition={statusBarTransition}
+        hidden={hidden} />
       <View style={styles.heading}>
           <Text style={styles.Title}>QuizVerse</Text>
           <Text style={styles.Tagline}>Unlocking knowledge at the speed of thought</Text>
