@@ -23,14 +23,18 @@ export default function Rules({navigation}) {
         <BannerAd
           unitId={adUnitTop}
           size={BannerAdSize.BANNER}
-          
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+          }}
         />
       </View>
       <View style={{position: 'absolute', bottom: 0, alignSelf: 'center'}}>
         <BannerAd
           unitId={adUnitBottom}
           size={BannerAdSize.BANNER}
-          
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+          }}
         />
       </View>
       <ScrollView>

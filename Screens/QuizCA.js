@@ -15,8 +15,12 @@ import {
 } from 'react-native-google-mobile-ads';
 import {ScrollView} from 'react-native-gesture-handler';
 
-const adUnitId = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-7528260341883951/9448073398';
-const BannerAdUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-7528260341883951/4461687633';
+const adUnitId = __DEV__
+  ? TestIds.REWARDED
+  : 'ca-app-pub-7528260341883951/9448073398';
+const BannerAdUnitId = __DEV__
+  ? TestIds.BANNER
+  : 'ca-app-pub-7528260341883951/4461687633';
 
 const shuffleArray = array => {
   for (let i = array.length - 1; i > 0; i--) {
@@ -85,7 +89,7 @@ export default function Quiz({navigation}) {
   };
 
   const {isLoaded, isClosed, load, show} = useRewardedAd(adUnitId, {
-     
+    requestNonPersonalizedAdsOnly: true,
   });
   useEffect(() => {
     load();
@@ -125,7 +129,9 @@ export default function Quiz({navigation}) {
           <BannerAd
             size={BannerAdSize.BANNER}
             unitId={BannerAdUnitId}
-             
+            requestOptions={{
+              requestNonPersonalizedAdsOnly: true,
+            }}
           />
         </View>
         <View style={styles.container}>

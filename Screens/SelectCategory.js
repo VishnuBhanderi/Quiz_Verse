@@ -20,7 +20,9 @@ export default function SelectCategory({navigation}) {
         <BannerAd
           size={BannerAdSize.BANNER}
           unitId={BannerAdUnitId}
-          
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+          }}
         />
       </View>
       <View style={styles.container}>

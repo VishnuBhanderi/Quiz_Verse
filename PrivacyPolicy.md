@@ -20,7 +20,7 @@ This Services does not uses these “cookies” explicitly. However, the app may
 
 ### Contains Ads
 
-Our free applications use advertising currently provided by Admob and anonymous statistical information is reported to them so they can see whether their adverts are effective. [Click here for more information about Admob](https://admob.google.com/home/).
+Our free applications use advertising currently provided by Admob and anonymous statistical information is reported to them so they can see whether their adverts are effective. [Click here for more information about Admob and it's Privacy Policy](https://admob.google.com/home/). We are not responsible for any type of data collection done by AdMob.
 
 ### Location Information  
 Some of the services may use location information transmitted from users' mobile phones. We only use this information within the scope necessary for the designated service.  
