@@ -41,7 +41,7 @@ export default function Quiz({navigation}) {
   const getQuiz = async () => {
     setIsLoading(true);
     const url =
-      'https://opentdb.com/api.php?amount=10&category=12&difficulty=easy&type=multiple&encode=url3986';
+      'https://opentdb.com/api.php?amount=10&category=12&type=multiple&encode=url3986';
     const res = await fetch(url);
     const data = await res.json();
     setQuestions(data.results);
