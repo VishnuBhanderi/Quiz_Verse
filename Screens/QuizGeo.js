@@ -2,24 +2,26 @@ import {StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native';
 import {useState} from 'react';
 import {useEffect} from 'react';
-import {COLORS, SIZES} from '../assets/constants';
+import {COLORS} from '../assets/constants';
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import LottieView from 'lottie-react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {
-  BannerAdSize,
-  BannerAd,
-  TestIds,
-  RewardedAd,
-  RewardedAdEventType,
-  useRewardedAd,
-} from 'react-native-google-mobile-ads';
+// import {
+//   BannerAdSize,
+//   BannerAd,
+//   TestIds,
+//   useRewardedAd,
+// } from 'react-native-google-mobile-ads';
 import {ScrollView} from 'react-native-gesture-handler';
 
-const adUnitId = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-7528260341883951/7943420037';
-const BannerAdUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-7528260341883951/4653259329';
-  ;
+// const adUnitId = __DEV__
+//   ? TestIds.REWARDED
+//   : 'ca-app-pub-7528260341883951/9448073398';
+// const BannerAdUnitId = __DEV__
+//   ? TestIds.BANNER
+//   : 'ca-app-pub-7528260341883951/4461687633';
+
 const shuffleArray = array => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -63,7 +65,7 @@ export default function Quiz({navigation}) {
     setCurrentOptionSelected(selectedOption);
     setCorrectOption(questions[ques].correct_answer);
     setIsOptionDisabled(true);
-    if (selectedOption == questions[ques].correct_answer) {
+    if (selectedOption == questions[ques].correct_answer && isRewarded == false) {
       //set Score
       setScore(score + 10);
     }
@@ -86,32 +88,29 @@ export default function Quiz({navigation}) {
     navigation.navigate('Result', {score: score});
   };
 
-  const {isLoaded, isClosed, load, show} = useRewardedAd(adUnitId, {
-    requestNonPersonalizedAdsOnly: true,
-  });
-  useEffect(() => {
-    load();
-  }, [load]);
-  useEffect(() => {
-    if (isClosed) {
-      setIsRewarded(true);
-      setScore(score + 10);
-      console.log('User earned reward of ');
-      load();
-    }
-  }, [isClosed, load]);
+  // const {isLoaded, isClosed, load, show} = useRewardedAd(adUnitId, {
+  //   requestNonPersonalizedAdsOnly: true,
+  // });
+  // useEffect(() => {
+  //   load();
+  // }, [load]);
+  // useEffect(() => {
+  //   if (isClosed) {
+  //     setIsRewarded(true);
+  //     setScore(score + 10);
+  //     console.log('User earned reward of ');
+  //     load();
+  //   }
+  // }, [isClosed, load]);
 
-  // // Start loading the rewarded ad straight away
-  // load();
+  // // // Start loading the rewarded ad straight away
+  // // load();
 
-  // Unsubscribe from events on unmount
+  // // Unsubscribe from events on unmount
 
-  const onPress = async () => {
-    if (isLoaded) {
-      return show();
-    } else {
-      return null;
-    }
+  const GiveReward = () => {
+    setIsRewarded(true);
+    setScore(score+10);
   };
 
   // No advert ready to show yet
@@ -123,15 +122,15 @@ export default function Quiz({navigation}) {
         style={styles.container}
         start={{x: 0, y: 0}}
         end={{x: 1, y: 1}}>
-        <View style={{position: 'absolute', bottom: 0, alignSelf: 'center'}}>
+        {/* <View style={{position: 'absolute', bottom: 0, alignSelf: 'center'}}>
           <BannerAd
             size={BannerAdSize.BANNER}
             unitId={BannerAdUnitId}
             requestOptions={{
               requestNonPersonalizedAdsOnly: true,
-            }} 
+            }}
           />
-        </View>
+        </View> */}
         <View style={styles.container}>
           {isLoading ? (
             <View style={styles.Loading}>
@@ -147,7 +146,7 @@ export default function Quiz({navigation}) {
                 <ScrollView>
                   {!showNextButton ? (
                     <View>
-                      <TouchableOpacity style={styles.hint} onPress={onPress}>
+                      <TouchableOpacity style={styles.hint} onPress={GiveReward}>
                         <View
                           style={{
                             width: 30,

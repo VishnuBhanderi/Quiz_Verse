@@ -2,15 +2,15 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {BannerAdSize, BannerAd, TestIds} from 'react-native-google-mobile-ads';
+// import {BannerAdSize, BannerAd, TestIds} from 'react-native-google-mobile-ads';
 import {ScrollView} from 'react-native-gesture-handler';
 
-const adUnitBottom = __DEV__
-  ? TestIds.BANNER
-  : 'ca-app-pub-7528260341883951/6381273964';
-const adUnitTop = __DEV__
-  ? TestIds.BANNER
-  : 'ca-app-pub-7528260341883951/4876620603';
+// const adUnitBottom = __DEV__
+//   ? TestIds.BANNER
+//   : 'ca-app-pub-7528260341883951/6381273964';
+// const adUnitTop = __DEV__
+//   ? TestIds.BANNER
+//   : 'ca-app-pub-7528260341883951/4876620603';
 
 export default function Rules({navigation}) {
   return (
@@ -19,7 +19,7 @@ export default function Rules({navigation}) {
       style={styles.container}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}>
-      <View style={{position: 'absolute', top: 0, alignSelf: 'center'}}>
+      {/* <View style={{position: 'absolute', top: 0, alignSelf: 'center'}}>
         <BannerAd
           unitId={adUnitTop}
           size={BannerAdSize.BANNER}
@@ -36,7 +36,7 @@ export default function Rules({navigation}) {
             requestNonPersonalizedAdsOnly: true,
           }}
         />
-      </View>
+      </View> */}
       <ScrollView>
         <View style={styles.container}>
           <Text style={styles.titel}>Rules</Text>

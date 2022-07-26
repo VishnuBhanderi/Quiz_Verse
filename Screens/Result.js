@@ -3,9 +3,9 @@ import {TouchableOpacity} from 'react-native';
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import LottieView from 'lottie-react-native';
-import {BannerAdSize, BannerAd, TestIds} from 'react-native-google-mobile-ads';
+// import {BannerAdSize, BannerAd, TestIds} from 'react-native-google-mobile-ads';
 
-const BannerAdUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-7528260341883951/2957034278';
+// const BannerAdUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-7528260341883951/2957034278';
 
 export default function Result({navigation, route}) {
   const {score} = route.params;
@@ -16,7 +16,7 @@ export default function Result({navigation, route}) {
       style={styles.container}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}>
-      <View style={{position: 'absolute', bottom: 0, alignSelf: 'center'}}>
+      {/* <View style={{position: 'absolute', bottom: 0, alignSelf: 'center'}}>
         <BannerAd
           size={BannerAdSize.BANNER}
           unitId={BannerAdUnitId}
@@ -24,7 +24,7 @@ export default function Result({navigation, route}) {
             requestNonPersonalizedAdsOnly: true,
           }}
         />
-      </View>
+      </View> */}
       <View style={styles.container}>
         <Text style={styles.title}>Result</Text>
 

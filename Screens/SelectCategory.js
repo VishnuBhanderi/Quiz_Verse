@@ -2,12 +2,12 @@ import React from 'react';
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {BannerAdSize, BannerAd, TestIds} from 'react-native-google-mobile-ads';
+// import {BannerAdSize, BannerAd, TestIds} from 'react-native-google-mobile-ads';
 import {ScrollView} from 'react-native-gesture-handler';
 
-const BannerAdUnitId = __DEV__
-  ? TestIds.BANNER
-  : 'ca-app-pub-7528260341883951/5806558897';
+// const BannerAdUnitId = __DEV__
+//   ? TestIds.BANNER
+//   : 'ca-app-pub-7528260341883951/5806558897';
 
 export default function SelectCategory({navigation}) {
   return (
@@ -16,7 +16,7 @@ export default function SelectCategory({navigation}) {
       style={styles.container}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}>
-      <View style={{position: 'absolute', bottom: 0, alignSelf: 'center'}}>
+      {/* <View style={{position: 'absolute', bottom: 0, alignSelf: 'center'}}>
         <BannerAd
           size={BannerAdSize.BANNER}
           unitId={BannerAdUnitId}
@@ -24,7 +24,7 @@ export default function SelectCategory({navigation}) {
             requestNonPersonalizedAdsOnly: true,
           }}
         />
-      </View>
+      </View> */}
       <View style={styles.container}>
         <View style={styles.heading}>
           <Text style={styles.Title}>Select Category</Text>
