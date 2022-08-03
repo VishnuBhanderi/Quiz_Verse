@@ -17,10 +17,10 @@ The app does use third party services that may collect information used to ident
 Cookies are files with small amount of data that is commonly used an anonymous unique identifier. These are sent to your browser from the website that you visit and are stored on your devices’s internal memory.  
 
 This Services does not uses these “cookies” explicitly. However, the app may use third party code and libraries that use “cookies” to collection information and to improve their services. You have the option  to either accept or refuse these cookies, and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.  
-
+<!-- 
 ### Contains Ads
 
-Our free applications use advertising currently provided by Admob and anonymous statistical information is reported to them so they can see whether their adverts are effective. [Click here for more information about Admob and it's Privacy Policy](https://admob.google.com/home/). We are not responsible for any type of data collection done by AdMob.
+Our free applications use advertising currently provided by Admob and anonymous statistical information is reported to them so they can see whether their adverts are effective. [Click here for more information about Admob and it's Privacy Policy](https://admob.google.com/home/). We are not responsible for any type of data collection done by AdMob. -->
 
 ### Location Information  
 Some of the services may use location information transmitted from users' mobile phones. We only use this information within the scope necessary for the designated service.  

@@ -6251,7 +6251,7 @@
     "resolve-from" "^5.0.0"
     "semver" "^7.0.0"
 
-"react-native@*", "react-native@>=0.46", "react-native@>=0.55", "react-native@>=0.57", "react-native@0.68.2":
+"react-native@*", "react-native@^0.68.2", "react-native@>=0.46", "react-native@>=0.55", "react-native@>=0.57":
   "integrity" "sha512-qNMz+mdIirCEmlrhapAtAG+SWVx6MAiSfCbFNhfHqiqu1xw1OKXdzIrjaBEPihRC2pcORCoCHduHGQe/Pz9Yuw=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.68.2.tgz"
   "version" "0.68.2"
