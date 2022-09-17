@@ -23,9 +23,11 @@ If you get a score of greater than 40 on the quiz, you will be the winner.
 👉 Reward Feature
 A key button is located in the top right corner of the question screen. If you hit that button, you will receive the right answer to that question as well as points for that specific question.
 
-## ![Home](./SS/Phone/Home.png)
-## ![Rules](./SS/Phone/Rule.png)
-## ![Categories](./SS/Phone/Categories.png)
-## ![Question Screen 1](./SS/Phone/Que1.png)
-## ![Question Screen 2](./SS/Phone/Que2.png)
-## ![Question Screen 3](./SS/Phone/Que3.png)
+<img src="./SS/Phone/Home.png"  width=50% height=50%>
+<img src="./SS/Phone/Rule.png"  width=50% height=50%>
+<img src="./SS/Phone/Categories.png"  width=50% height=50%>
+<img src="./SS/Phone/Que1.png"  width=50% height=50%>
+<img src="./SS/Phone/Que2.png"  width=50% height=50%>
+<img src="./SS/Phone/Que3.png"  width=50% height=50%>
+
+
